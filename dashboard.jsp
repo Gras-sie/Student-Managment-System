@@ -10,7 +10,7 @@
 
     <div class="dashboard-container">
         <div class="dashboard-box">
-            <h2 class="welcome-message">Welcome, <%= (request.getSession().getAttribute("userName") != null) ? request.getSession().getAttribute("userName") : "Student" %>!</h2>
+            <h2 class="welcome-message">Welcome, <%= (request.getSession().getAttribute("name") != null) ? request.getSession().getAttribute("name") : "Student" %>!</h2>
             <p>
                 You have successfully logged into the BC Student Wellness Management System.
                 Here you can manage your appointments, interact with counselors, and submit feedback.

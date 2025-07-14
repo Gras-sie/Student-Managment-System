@@ -11,6 +11,19 @@
     <div class="form-container">
         <div class="registration-box">
             <h2>New Student Registration</h2>
+
+            <%-- Display error messages if any --%>
+            <%
+                String errorMessage = (String) request.getAttribute("errorMessage");
+                if (errorMessage != null) {
+            %>
+                    <div class="error-message" style="display: block;">
+                        <%= errorMessage %>
+                    </div>
+            <%
+                }
+            %>
+
             <form action="RegisterServlet" method="post">
                 <div class="form-group">
                     <label for="studentNumber">Student Number:</label>
