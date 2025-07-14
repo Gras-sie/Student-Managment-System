@@ -6,10 +6,23 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script>
         function validateForm() {
-            var password = document.getElementById("password").value;
-            var confirmPassword = document.getElementById("confirmPassword").value;
+            // Get form elements
+            const passwordElement = document.getElementById("password");
+            const confirmPasswordElement = document.getElementById("confirmPassword");
 
-            if (password != confirmPassword) {
+            if (!passwordElement || !confirmPasswordElement) {
+                console.error("Password or confirm password field not found");
+                return false;
+            }
+
+            // Cast elements to HTMLInputElement to access a value property
+            const passwordInput = /** @type {HTMLInputElement} */ (passwordElement);
+            const confirmPasswordInput = /** @type {HTMLInputElement} */ (confirmPasswordElement);
+
+            const password = passwordInput.value || '';
+            const confirmPassword = confirmPasswordInput.value || '';
+
+            if (password !== confirmPassword) {
                 alert("Passwords do not match!");
                 return false;
             }
@@ -25,18 +38,23 @@
             <h2>New Student Registration</h2>
 
             <%-- Display error messages if any --%>
-            <%
-                String errorMessage = (String) request.getAttribute("errorMessage");
-                if (errorMessage != null) {
-            %>
-                    <div class="error-message" style="display: block;">
-                        <%= errorMessage %>
-                    </div>
-            <%
-                }
-            %>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            <script>
+                // Check for an error message in URL parameters
+                document.addEventListener('DOMContentLoaded', function() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const errorMsg = urlParams.get('error');
+                    if (errorMsg) {
+                        const errorElement = document.getElementById('errorMessage');
+                        if (errorElement) {
+                            errorElement.textContent = decodeURIComponent(errorMsg);
+                            errorElement.setAttribute('style', 'display: block');
+                        }
+                    }
+                });
+            </script>
 
-            <form action="RegisterServlet" method="post" onsubmit="return validateForm();">
+            <form action="${pageContext.request.contextPath}/RegisterServlet" method="post" onsubmit="return validateForm();">
                 <div class="form-group">
                     <label for="studentNumber">Student Number:</label>
                     <input type="text" id="studentNumber" name="studentNumber" pattern="^[a-zA-Z0-9]+$" title="Student number should contain only letters and numbers" required>

@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
+    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Implement user session check and enhance registration form validation">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bcstudent/servlet/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bcstudent/servlet/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bcstudent/servlet/RegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bcstudent/servlet/RegisterServlet.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="8a9ed60b-6319-4b24-a430-f387cdbe8298" value="Green" />
+    </colors>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -42,26 +58,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;MVC-Marius&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/OneDrive - belgiumcampus.ac.za/Belgium ITversity Year 3/Semester 2/PRG 381/Project/Student-Managment-System&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "MVC-Marius",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/User/OneDrive - belgiumcampus.ac.za/Belgium ITversity Year 3/Semester 2/PRG 381/Project/Student-Managment-System",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -78,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1752485695131</updated>
       <workItem from="1752485696707" duration="1570000" />
-      <workItem from="1752487534931" duration="1463000" />
+      <workItem from="1752487534931" duration="3865000" />
     </task>
     <task id="LOCAL-00001" summary="Implement user authentication and registration with database connection">
       <option name="closed" value="true" />
@@ -112,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752488860338</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Implement user session check and enhance registration form validation">
+      <option name="closed" value="true" />
+      <created>1752489242785</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1752489242785</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +164,7 @@
     <MESSAGE value="Implement user authentication and registration with database connection" />
     <MESSAGE value="Update .gitignore and workspace.xml for IDE configurations" />
     <MESSAGE value="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
+    <MESSAGE value="Implement user session check and enhance registration form validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement user session check and enhance registration form validation" />
   </component>
 </project>

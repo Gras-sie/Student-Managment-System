@@ -59,6 +59,15 @@ buildNumber.properties
 
 # Gradle
 .gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# PostgreSQL
+*.backup
+*.dump
+*.dmp
+pg_data/
+pgdata/
+postgres-data/
 
 # Application specific
 *.properties
@@ -66,6 +75,20 @@ buildNumber.properties
 *.db
 *.sqlite
 *.sqlite3
+
+# Web application specific
+WebContent/WEB-INF/classes/
+WebContent/WEB-INF/lib/
+
+# Tomcat
+tomcat*/
+
+# Environment variables and secrets
+.env
+*.pem
+*.key
+*.p12
+*.pfx
 
 # OS specific
 .DS_Store

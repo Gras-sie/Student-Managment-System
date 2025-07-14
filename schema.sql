@@ -22,6 +22,6 @@ COMMENT ON COLUMN users.password IS 'Hashed password for security';
 COMMENT ON COLUMN users.created_at IS 'Timestamp when the account was created';
 COMMENT ON COLUMN users.last_login IS 'Timestamp of the last successful login';
 
--- Create index for faster lookups
+-- Create an index for faster lookups
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_student_number ON users(student_number);

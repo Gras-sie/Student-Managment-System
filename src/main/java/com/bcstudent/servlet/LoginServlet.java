@@ -23,10 +23,10 @@ import com.bcstudent.util.DBConnection;
  * Servlet implementation class LoginServlet
  * Handles user authentication and session management.
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/StudentWellness/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
@@ -34,19 +34,18 @@ public class LoginServlet extends HttpServlet {
         // Get form parameters
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+
         // Validate inputs
         if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
-            request.setAttribute("errorMessage", "Username and password are required.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("Username and password are required.", "UTF-8"));
             return;
         }
-        
+
         // Authenticate user
         try {
             // Attempt to authenticate the user
             User user = authenticateUser(username, password);
-            
+
             if (user != null) {
                 // Authentication successful, create session
                 HttpSession session = request.getSession(true);
@@ -55,25 +54,23 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("name", user.getName());
                 session.setAttribute("surname", user.getSurname());
                 session.setAttribute("email", user.getEmail());
-                
+
                 // Update last login timestamp
                 updateLastLogin(user.getUserId());
-                
-                // Redirect to dashboard
-                response.sendRedirect("dashboard.jsp");
+
+                // Redirect to dashboard servlet
+                response.sendRedirect(request.getContextPath() + "/StudentWellness/DashboardServlet");
             } else {
                 // Authentication failed
-                request.setAttribute("errorMessage", "Invalid username or password.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("Invalid username or password.", "UTF-8"));
             }
         } catch (Exception e) {
             // Handle any exceptions
             e.printStackTrace();
-            request.setAttribute("errorMessage", "An error occurred during login. Please try again later.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("An error occurred during login. Please try again later.", "UTF-8"));
         }
     }
-    
+
     /**
      * Authenticates a user by checking credentials against the database
      * 
@@ -86,27 +83,27 @@ public class LoginServlet extends HttpServlet {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         User user = null;
-        
+
         try {
             conn = DBConnection.getConnection();
-            
+
             // Prepare SQL statement to check if username is student number or email
             String sql = "SELECT user_id, student_number, name, surname, email, password " +
                          "FROM users WHERE student_number = ? OR email = ?";
-            
+
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, username);
             stmt.setString(2, username);
-            
+
             rs = stmt.executeQuery();
-            
+
             if (rs.next()) {
                 // Get stored hashed password
                 String storedHash = rs.getString("password");
-                
+
                 // Hash the provided password
                 String hashedPassword = hashPassword(password);
-                
+
                 // Compare the hashes
                 if (storedHash.equals(hashedPassword)) {
                     // Authentication successful, create user object
@@ -130,10 +127,10 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        
+
         return user;
     }
-    
+
     /**
      * Updates the last_login timestamp for a user
      * 
@@ -142,20 +139,20 @@ public class LoginServlet extends HttpServlet {
     private void updateLastLogin(int userId) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        
+
         try {
             conn = DBConnection.getConnection();
-            
+
             // Prepare SQL statement
             String sql = "UPDATE users SET last_login = ? WHERE user_id = ?";
-            
+
             stmt = conn.prepareStatement(sql);
             stmt.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             stmt.setInt(2, userId);
-            
+
             // Execute the update
             stmt.executeUpdate();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -168,7 +165,7 @@ public class LoginServlet extends HttpServlet {
             }
         }
     }
-    
+
     /**
      * Hashes the password using SHA-256
      * 
@@ -179,7 +176,7 @@ public class LoginServlet extends HttpServlet {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            
+
             // Convert byte array to hexadecimal string
             StringBuilder hexString = new StringBuilder();
             for (byte b : encodedHash) {
@@ -189,7 +186,7 @@ public class LoginServlet extends HttpServlet {
                 }
                 hexString.append(hex);
             }
-            
+
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -197,7 +194,7 @@ public class LoginServlet extends HttpServlet {
             return password;
         }
     }
-    
+
     /**
      * Inner class to represent a user
      */
@@ -207,43 +204,43 @@ public class LoginServlet extends HttpServlet {
         private String name;
         private String surname;
         private String email;
-        
+
         public int getUserId() {
             return userId;
         }
-        
+
         public void setUserId(int userId) {
             this.userId = userId;
         }
-        
+
         public String getStudentNumber() {
             return studentNumber;
         }
-        
+
         public void setStudentNumber(String studentNumber) {
             this.studentNumber = studentNumber;
         }
-        
+
         public String getName() {
             return name;
         }
-        
+
         public void setName(String name) {
             this.name = name;
         }
-        
+
         public String getSurname() {
             return surname;
         }
-        
+
         public void setSurname(String surname) {
             this.surname = surname;
         }
-        
+
         public String getEmail() {
             return email;
         }
-        
+
         public void setEmail(String email) {
             this.email = email;
         }

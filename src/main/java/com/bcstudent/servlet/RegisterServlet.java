@@ -28,11 +28,11 @@ import java.nio.charset.StandardCharsets;
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    
+
     // Regular expression for email validation
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
-    
+
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
@@ -45,38 +45,35 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-        
+
         // Validate inputs
         String errorMessage = validateInputs(studentNumber, name, surname, email, phone, password, confirmPassword);
-        
+
         if (errorMessage != null) {
             // If validation fails, redirect back to registration page with error
-            request.setAttribute("errorMessage", errorMessage);
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/register.jsp?error=" + java.net.URLEncoder.encode(errorMessage, "UTF-8"));
             return;
         }
-        
+
         // Check for duplicate student number or email
         if (isDuplicate(studentNumber, email)) {
-            request.setAttribute("errorMessage", "Student number or email already exists.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/register.jsp?error=" + java.net.URLEncoder.encode("Student number or email already exists.", "UTF-8"));
             return;
         }
-        
+
         // Hash the password
         String hashedPassword = hashPassword(password);
-        
+
         // Insert new user into database
         if (insertUser(studentNumber, name, surname, email, phone, hashedPassword)) {
             // Registration successful, redirect to login page
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
         } else {
             // Database error
-            request.setAttribute("errorMessage", "Registration failed. Please try again later.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/register.jsp?error=" + java.net.URLEncoder.encode("Registration failed. Please try again later.", "UTF-8"));
         }
     }
-    
+
     /**
      * Validates user input
      * 
@@ -101,45 +98,45 @@ public class RegisterServlet extends HttpServlet {
             confirmPassword == null || confirmPassword.isEmpty()) {
             return "All fields are required.";
         }
-        
+
         // Validate student number format (assuming it should be alphanumeric)
         if (!studentNumber.matches("^[a-zA-Z0-9]+$")) {
             return "Student number should contain only letters and numbers.";
         }
-        
+
         // Validate email format
         if (!isValidEmail(email)) {
             return "Invalid email format.";
         }
-        
+
         // Validate phone number (10 digits)
         if (!phone.matches("^[0-9]{10}$")) {
             return "Phone number must be 10 digits.";
         }
-        
+
         // Check if passwords match
         if (!password.equals(confirmPassword)) {
             return "Passwords do not match.";
         }
-        
+
         // Validate password strength
         if (password.length() < 8) {
             return "Password must be at least 8 characters long.";
         }
-        
+
         // Check for at least one uppercase letter, one lowercase letter, and one digit
         boolean hasUppercase = !password.equals(password.toLowerCase());
         boolean hasLowercase = !password.equals(password.toUpperCase());
         boolean hasDigit = password.matches(".*\\d.*");
-        
+
         if (!hasUppercase || !hasLowercase || !hasDigit) {
             return "Password must contain at least one uppercase letter, one lowercase letter, and one digit.";
         }
-        
+
         // All validations passed
         return null;
     }
-    
+
     /**
      * Validates email format using regex
      * 
@@ -153,7 +150,7 @@ public class RegisterServlet extends HttpServlet {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
     }
-    
+
     /**
      * Checks if student number or email already exists in the database
      * 
@@ -166,15 +163,15 @@ public class RegisterServlet extends HttpServlet {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         boolean isDuplicate = false;
-        
+
         try {
             conn = DBConnection.getConnection();
-            
+
             // Check for duplicate student number
             stmt = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE student_number = ?");
             stmt.setString(1, studentNumber);
             rs = stmt.executeQuery();
-            
+
             if (rs.next() && rs.getInt(1) > 0) {
                 isDuplicate = true;
             } else {
@@ -184,7 +181,7 @@ public class RegisterServlet extends HttpServlet {
                 stmt.setString(1, email);
                 rs.close();
                 rs = stmt.executeQuery();
-                
+
                 if (rs.next() && rs.getInt(1) > 0) {
                     isDuplicate = true;
                 }
@@ -201,10 +198,10 @@ public class RegisterServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        
+
         return isDuplicate;
     }
-    
+
     /**
      * Hashes the password using SHA-256
      * 
@@ -215,7 +212,7 @@ public class RegisterServlet extends HttpServlet {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-            
+
             // Convert byte array to hexadecimal string
             StringBuilder hexString = new StringBuilder();
             for (byte b : encodedHash) {
@@ -225,7 +222,7 @@ public class RegisterServlet extends HttpServlet {
                 }
                 hexString.append(hex);
             }
-            
+
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -233,7 +230,7 @@ public class RegisterServlet extends HttpServlet {
             return password;
         }
     }
-    
+
     /**
      * Inserts a new user into the database
      * 
@@ -250,14 +247,14 @@ public class RegisterServlet extends HttpServlet {
         Connection conn = null;
         PreparedStatement stmt = null;
         boolean success = false;
-        
+
         try {
             conn = DBConnection.getConnection();
-            
+
             // Prepare SQL statement
             String sql = "INSERT INTO users (student_number, name, surname, email, phone, password) " +
                          "VALUES (?, ?, ?, ?, ?, ?)";
-            
+
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studentNumber);
             stmt.setString(2, name);
@@ -265,11 +262,11 @@ public class RegisterServlet extends HttpServlet {
             stmt.setString(4, email);
             stmt.setString(5, phone);
             stmt.setString(6, hashedPassword);
-            
+
             // Execute the insert
             int rowsAffected = stmt.executeUpdate();
             success = (rowsAffected > 0);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -281,7 +278,7 @@ public class RegisterServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        
+
         return success;
     }
 }
