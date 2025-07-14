@@ -23,7 +23,7 @@ import com.bcstudent.util.DBConnection;
  * Servlet implementation class LoginServlet
  * Handles user authentication and session management.
  */
-@WebServlet("/StudentWellness/LoginServlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 
         // Validate inputs
         if (username == null || username.trim().isEmpty() || password == null || password.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("Username and password are required.", "UTF-8"));
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=" + java.net.URLEncoder.encode("Username and password are required.", "UTF-8"));
             return;
         }
 
@@ -59,15 +59,15 @@ public class LoginServlet extends HttpServlet {
                 updateLastLogin(user.getUserId());
 
                 // Redirect to dashboard servlet
-                response.sendRedirect(request.getContextPath() + "/StudentWellness/DashboardServlet");
+                response.sendRedirect(request.getContextPath() + "/DashboardServlet");
             } else {
                 // Authentication failed
-                response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("Invalid username or password.", "UTF-8"));
+                response.sendRedirect(request.getContextPath() + "/login.jsp?error=" + java.net.URLEncoder.encode("Invalid username or password.", "UTF-8"));
             }
         } catch (Exception e) {
             // Handle any exceptions
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/StudentWellness/login.jsp?error=" + java.net.URLEncoder.encode("An error occurred during login. Please try again later.", "UTF-8"));
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=" + java.net.URLEncoder.encode("An error occurred during login. Please try again later.", "UTF-8"));
         }
     }
 

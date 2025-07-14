@@ -26,7 +26,7 @@ public class DashboardServlet extends HttpServlet {
         // Check if user is logged in
         if (session.getAttribute("userId") == null) {
             // Redirect to login page if not logged in
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
             return;
         }
 
@@ -35,6 +35,6 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("name", name);
 
         // Forward to dashboard.jsp
-        request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+        request.getRequestDispatcher("/dashboard.jsp").forward(request, response);
     }
 }
