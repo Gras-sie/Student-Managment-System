@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>Register - BC Student Wellness</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script>
+        function validateForm() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password != confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <%@ include file="includes/header.jsp" %> 
@@ -24,10 +36,10 @@
                 }
             %>
 
-            <form action="RegisterServlet" method="post">
+            <form action="RegisterServlet" method="post" onsubmit="return validateForm();">
                 <div class="form-group">
                     <label for="studentNumber">Student Number:</label>
-                    <input type="text" id="studentNumber" name="studentNumber" required>
+                    <input type="text" id="studentNumber" name="studentNumber" pattern="^[a-zA-Z0-9]+$" title="Student number should contain only letters and numbers" required>
                 </div>
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -39,15 +51,15 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" pattern="^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$" title="Please enter a valid email address" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="e.g., 0821234567" pattern="[0-9]{10}" required>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g., 0821234567" pattern="[0-9]{10}" title="Phone number must be 10 digits" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one digit" required>
                 </div>
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password:</label>

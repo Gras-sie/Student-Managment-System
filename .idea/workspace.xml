@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Update .gitignore and workspace.xml for IDE configurations" />
+    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1752485695131</updated>
       <workItem from="1752485696707" duration="1570000" />
-      <workItem from="1752487534931" duration="1007000" />
+      <workItem from="1752487534931" duration="1463000" />
     </task>
     <task id="LOCAL-00001" summary="Implement user authentication and registration with database connection">
       <option name="closed" value="true" />
@@ -104,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752488538922</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix: Update welcome message to use 'name' attribute and add error message display in registration">
+      <option name="closed" value="true" />
+      <created>1752488860338</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752488860338</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +134,7 @@
     <MESSAGE value="feat: Implement user authentication and registration with database connection" />
     <MESSAGE value="Implement user authentication and registration with database connection" />
     <MESSAGE value="Update .gitignore and workspace.xml for IDE configurations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update .gitignore and workspace.xml for IDE configurations" />
+    <MESSAGE value="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: Update welcome message to use 'name' attribute and add error message display in registration" />
   </component>
 </project>

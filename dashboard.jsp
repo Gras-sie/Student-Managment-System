@@ -10,6 +10,14 @@
 
     <div class="dashboard-container">
         <div class="dashboard-box">
+            <%
+                // Check if user is logged in
+                if (request.getSession().getAttribute("userId") == null) {
+                    // Redirect to login page if not logged in
+                    response.sendRedirect("login.jsp");
+                    return;
+                }
+            %>
             <h2 class="welcome-message">Welcome, <%= (request.getSession().getAttribute("name") != null) ? request.getSession().getAttribute("name") : "Student" %>!</h2>
             <p>
                 You have successfully logged into the BC Student Wellness Management System.
