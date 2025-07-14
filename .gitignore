@@ -59,7 +59,6 @@ buildNumber.properties
 
 # Gradle
 .gradle/
-build/
 
 # Application specific
 *.properties

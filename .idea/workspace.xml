@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Implement user authentication and registration with database connection" />
+    <list default="true" id="f4f38b80-d602-4564-ac89-047b2d28dd4a" name="Changes" comment="Update .gitignore and workspace.xml for IDE configurations" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +19,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Gras-sie"
+  }
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Gras-sie/Student-Managment-System.git",
     "accountId": "38d84fc1-da08-4b16-b651-34ba9b288fd8"
   }
 }]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -69,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1752485695131</updated>
       <workItem from="1752485696707" duration="1570000" />
-      <workItem from="1752487534931" duration="330000" />
+      <workItem from="1752487534931" duration="629000" />
     </task>
     <task id="LOCAL-00001" summary="Implement user authentication and registration with database connection">
       <option name="closed" value="true" />
@@ -79,7 +88,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752487842036</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update .gitignore and workspace.xml for IDE configurations">
+      <option name="closed" value="true" />
+      <created>1752488122645</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752488122645</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +117,7 @@
     <MESSAGE value="Refactor: Centralised CSS and JSP partials" />
     <MESSAGE value="feat: Implement user authentication and registration with database connection" />
     <MESSAGE value="Implement user authentication and registration with database connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement user authentication and registration with database connection" />
+    <MESSAGE value="Update .gitignore and workspace.xml for IDE configurations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update .gitignore and workspace.xml for IDE configurations" />
   </component>
 </project>
