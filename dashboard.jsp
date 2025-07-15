@@ -10,7 +10,7 @@
 
     <div class="dashboard-container">
         <div class="dashboard-box">
-            <h2 class="welcome-message">Welcome, <%= (request.getSession().getAttribute("userName") != null) ? request.getSession().getAttribute("userName") : "Student" %>!</h2>
+            <h2 class="welcome-message">Welcome, ${sessionScope.name != null ? sessionScope.name : "Student"}!</h2>
             <p>
                 You have successfully logged into the BC Student Wellness Management System.
                 Here you can manage your appointments, interact with counselors, and submit feedback.
@@ -19,8 +19,8 @@
                 Explore the features designed to support your well-being journey.
             </p>
 
-            <%-- The logout button will eventually point to your LogoutServlet --%>
-            <a href="LogoutServlet" class="logout-button">Logout</a>
+            <%-- The logout button points to the LogoutServlet URL mapping --%>
+            <a href="${pageContext.request.contextPath}/LogoutServlet" class="logout-button">Logout</a>
         </div>
     </div>
 

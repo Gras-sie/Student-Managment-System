@@ -12,19 +12,19 @@
         <div class="login-box">
             <h2>Student Login</h2>
 
-            <%-- This div will be used by your servlet to display error messages --%>
-            <%
-                String errorMessage = (String) request.getAttribute("errorMessage");
-                if (errorMessage != null) {
-            %>
-                    <div class="error-message" style="display: block;">
-                        <%= errorMessage %>
-                    </div>
-            <%
+            <%-- Display error messages if any --%>
+            <div class="error-message" id="errorMessage" style="display: none;"></div>
+            <script>
+                // Check for an error message in URL parameters
+                let urlParams = new URLSearchParams(window.location.search);
+                let errorMsg = urlParams.get('error');
+                if (errorMsg) {
+                    document.getElementById('errorMessage').textContent = decodeURIComponent(errorMsg);
+                    document.getElementById('errorMessage').setAttribute('style', 'display: block;');
                 }
-            %>
+            </script>
 
-            <form action="LoginServlet" method="post">
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
                 <div class="form-group">
                     <label for="username">Student Number or Email:</label>
                     <input type="text" id="username" name="username" required>
